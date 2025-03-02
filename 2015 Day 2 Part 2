@@ -1,0 +1,23 @@
+input = open("Input.txt", 'r').readlines()
+totalLength = 0
+
+for dims in input:
+    x1 = dims.find("x")
+    x2 = dims.find("x", x1 + 1)
+
+    length = int(dims[:x1])
+    width = int(dims[x1 + 1:x2])
+    height = int(dims[x2 + 1:])
+
+    lowest = min(length, width, height)
+    lowest2 = 0
+    if lowest == length:
+        lowest2 = min(width, height)
+    elif lowest == width:
+        lowest2 = min(length, height)
+    else:
+        lowest2 = min(length, width)
+
+    totalLength += 2*lowest + 2*lowest2 + length*width*height
+
+print(totalLength)
