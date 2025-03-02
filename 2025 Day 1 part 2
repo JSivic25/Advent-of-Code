@@ -1,0 +1,51 @@
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+
+
+public class adventOfCode {
+   public static void main(String[] args) throws IOException {
+       ArrayList<String> initArr = new ArrayList<String>();
+       ArrayList<String> arr1 = new ArrayList<String>();
+       ArrayList<String> arr2 = new ArrayList<String>();
+
+
+       BufferedReader reader = null;
+       try {
+           reader = new BufferedReader(new FileReader("./src/input.txt"));
+       } catch (FileNotFoundException e) {
+           throw new RuntimeException(e);
+       }
+       String temp = reader.readLine();
+       while(temp != null){
+           initArr.add(temp);
+           temp = reader.readLine();
+       }
+       reader.close();
+
+
+       for(String i : initArr){
+           int space = i.indexOf(' ');
+           arr1.add(i.substring(0, space));
+           arr2.add(i.substring(space + 1));
+       }
+       Collections.sort(arr1);
+       Collections.sort(arr2);
+
+
+       int simScore = 0;
+       for(int i = 0; i < arr1.size(); i++){
+           int numMatch = 0;
+           String s = arr1.get(i);
+           for(int j = 0; j < arr2.size(); j++){
+               if(arr2.get(j).equals(s)){
+                   numMatch++;
+               }
+           }
+           simScore += Integer.parseInt(s) * numMatch;
+       }
+       System.out.println(simScore);
+   }
