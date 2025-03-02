@@ -1,0 +1,11 @@
+file = open('Input.txt', 'r')
+input = file.readline()
+answer = 0
+
+for char in input:
+    if char == '(':
+        answer += 1
+    else:
+        answer -= 1
+
+print(answer)
