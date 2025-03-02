@@ -1,0 +1,20 @@
+input = open("Input.txt", 'r').read()
+houses = []
+x = 0
+y = 0
+
+for dir in input:
+    match dir:
+        case '<':
+            x -= 1
+        case '^':
+            y += 1
+        case '>':
+            x += 1
+        case 'v':
+            y -= 1
+
+    if not (("(" + str(x) + ", " + str(y) + ")") in houses):
+        houses.append("(" + str(x) + ", " + str(y) + ")")
+
+print(len(houses))
