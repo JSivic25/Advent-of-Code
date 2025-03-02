@@ -1,0 +1,64 @@
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+
+
+public class adventOfCode {
+   public static void main(String[] args) throws IOException {
+       int total = 0;
+       char[][] mainArr = setupArr();
+       for(int i = 1; i < mainArr.length - 1; i++){
+           for(int j = 1; j < mainArr[0].length - 1; j++){
+               if(mainArr[i][j] == 'A'){
+                   if(isXmas(i, j, mainArr))
+                       total++;
+               }
+           }
+       }
+       System.out.println(total);
+   }
+
+
+
+
+   public static boolean isXmas(int xPos, int yPos, char[][] mainArr){
+       if(mainArr[xPos - 1][yPos - 1] + mainArr[xPos + 1][yPos + 1] == 160 && mainArr[xPos - 1][yPos + 1] + mainArr[xPos + 1][yPos - 1] == 160)
+           return true;
+       return false;
+   }
+
+
+   private static char[][] setupArr() throws IOException {
+       ArrayList<String> initArr = new ArrayList<String>();
+       char[][] finalArr;
+
+
+       BufferedReader reader = null;
+       try {
+           reader = new BufferedReader(new FileReader("./src/input.txt"));
+       } catch (FileNotFoundException e) {
+           throw new RuntimeException(e);
+       }
+
+
+       String temp = reader.readLine();
+       while (temp != null) {
+           initArr.add(temp);
+           temp = reader.readLine();
+       }
+       reader.close();
+
+
+       finalArr = new char[initArr.get(0).length()][initArr.size()];
+       for(int i = 0; i < initArr.size(); i++){
+           for(int j = 0; j < initArr.get(0).length(); j++){
+               finalArr[i][j] = initArr.get(i).charAt(j);
+           }
+       }
+
+
+       return finalArr;
+   }
+}
