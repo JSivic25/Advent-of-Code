@@ -1,0 +1,120 @@
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+
+
+public class adventOfCode {
+   public static void main(String[] args) throws IOException {
+       int total = 0;
+       char[][] mainArr = setupArr();
+       for(int i = 0; i < mainArr.length; i++){
+           for(int j = 0; j < mainArr[0].length; j++){
+               if(mainArr[i][j] == 'X'){
+                   total += checkAll(i, j, mainArr);
+               }
+           }
+       }
+       System.out.println(total);
+   }
+
+
+   public static int checkAll(int x, int y, char[][] arr){
+       int total = 0;
+       for(int i = 1; i <= 8; i++){
+           if(isXmas(x, y, i, arr)){
+               total++;
+           }
+       }
+       return total;
+   }
+
+
+   public static boolean isXmas(int xPos, int yPos, int dir, char[][] mainArr){
+       switch(dir){
+           case 1:
+               if(xPos - 3 < 0 || yPos - 3 < 0)
+                   break;
+               if(mainArr[xPos - 1][yPos - 1] == 'M' && mainArr[xPos - 2][yPos - 2] == 'A' && mainArr[xPos - 3][yPos - 3] == 'S')
+                   return true;
+               break;
+           case 2:
+               if(yPos - 3 < 0)
+                   break;
+               if(mainArr[xPos][yPos - 1] == 'M' && mainArr[xPos][yPos - 2] == 'A' && mainArr[xPos][yPos - 3] == 'S')
+                   return true;
+               break;
+           case 3:
+               if(xPos + 3 >= 140 || yPos - 3 < 0)
+                   break;
+               if(mainArr[xPos + 1][yPos - 1] == 'M' && mainArr[xPos + 2][yPos - 2] == 'A' && mainArr[xPos + 3][yPos - 3] == 'S')
+                   return true;
+               break;
+           case 4:
+               if(xPos - 3 < 0)
+                   break;
+               if(mainArr[xPos - 1][yPos] == 'M' && mainArr[xPos - 2][yPos] == 'A' && mainArr[xPos - 3][yPos] == 'S')
+                   return true;
+               break;
+           case 5:
+               if(xPos + 3 >= 140)
+                   break;
+               if(mainArr[xPos + 1][yPos] == 'M' && mainArr[xPos + 2][yPos] == 'A' && mainArr[xPos + 3][yPos] == 'S')
+                   return true;
+               break;
+           case 6:
+               if(xPos - 3 < 0 || yPos + 3 >= 140)
+                   break;
+               if(mainArr[xPos - 1][yPos + 1] == 'M' && mainArr[xPos - 2][yPos + 2] == 'A' && mainArr[xPos - 3][yPos + 3] == 'S')
+                   return true;
+               break;
+           case 7:
+               if(yPos + 3 >= 140)
+                   break;
+               if(mainArr[xPos][yPos + 1] == 'M' && mainArr[xPos][yPos + 2] == 'A' && mainArr[xPos][yPos + 3] == 'S')
+                   return true;
+               break;
+           case 8:
+               if(xPos + 3 >= 140 || yPos + 3 >= 140)
+                   break;
+               if(mainArr[xPos + 1][yPos + 1] == 'M' && mainArr[xPos + 2][yPos + 2] == 'A' && mainArr[xPos + 3][yPos + 3] == 'S')
+                   return true;
+               break;
+       }
+       return false;
+   }
+
+
+   private static char[][] setupArr() throws IOException {
+       ArrayList<String> initArr = new ArrayList<String>();
+       char[][] finalArr;
+
+
+       BufferedReader reader = null;
+       try {
+           reader = new BufferedReader(new FileReader("./src/input.txt"));
+       } catch (FileNotFoundException e) {
+           throw new RuntimeException(e);
+       }
+
+
+       String temp = reader.readLine();
+       while (temp != null) {
+           initArr.add(temp);
+           temp = reader.readLine();
+       }
+       reader.close();
+
+
+       finalArr = new char[initArr.get(0).length()][initArr.size()];
+       for(int i = 0; i < initArr.size(); i++){
+           for(int j = 0; j < initArr.get(0).length(); j++){
+               finalArr[i][j] = initArr.get(i).charAt(j);
+           }
+       }
+
+
+       return finalArr;
+   }
+}
