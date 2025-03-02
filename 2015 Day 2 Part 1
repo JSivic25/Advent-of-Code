@@ -1,0 +1,14 @@
+input = open("Input.txt", 'r').readlines()
+totalSurf = 0
+
+for dims in input:
+    x1 = dims.find("x")
+    x2 = dims.find("x", x1 + 1)
+
+    length = int(dims[:x1])
+    width = int(dims[x1 + 1:x2])
+    height = int(dims[x2 + 1:])
+
+    totalSurf += (2*length*width) + (2*width*height) + (2*height*length) + min(length*width, width*height, height*length)
+
+print(totalSurf)
