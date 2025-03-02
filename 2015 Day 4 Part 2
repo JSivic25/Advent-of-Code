@@ -1,0 +1,10 @@
+import hashlib
+
+input = "bgvyzdsv"
+
+for i in range(100000000000):
+    encoded = (input + str(i)).encode()
+    md5 = str(hashlib.md5(encoded).hexdigest())
+    if md5[0:6] == "000000":
+        print(i)
+        break
