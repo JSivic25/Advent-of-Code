@@ -1,0 +1,20 @@
+input = open("Input.txt", 'r').readlines()
+niceStrings = 0
+
+for string in input:
+    print(string)
+    nice = True
+    for i in range(len(string) - 2):
+        nice = False
+        if string[i] == string[i + 1]:
+            nice = True
+            break
+    if string.count("a") + string.count("e") + string.count("i") + string.count("o") + string.count("u") < 3:
+        nice = False
+    if string.find("ab") != -1 or string.find("cd") != -1 or string.find("pq") != -1 or string.find("xy") != -1:
+        nice = False
+
+    if nice:
+        niceStrings += 1
+
+print(niceStrings)
