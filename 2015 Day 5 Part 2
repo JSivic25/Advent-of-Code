@@ -1,0 +1,22 @@
+input = open("Input.txt", 'r').readlines()
+niceStrings = 0
+
+for string in input:
+    cond1 = False
+    cond2 = False
+    for i in range(len(string) - 4):
+        check = string[i:i+2]
+        for j in range(len(string[i + 2:]) - 2):
+            if check == string[j + i + 2:j + i + 4]:
+                cond1 = True
+                break
+
+    for i in range(len(string) - 3):
+        if string[i] == string[i + 2]:
+            cond2 = True
+
+    if cond1 and cond2:
+        niceStrings += 1
+
+
+print(niceStrings)
