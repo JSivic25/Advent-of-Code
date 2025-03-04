@@ -1,0 +1,9 @@
+input = open("Input.txt", 'r').readline()
+final = 0
+
+for i in range(len(input) - 2):
+    if input[i] == input[i + 1]:
+        final += int(input[i])
+
+final += 9
+print(final)
