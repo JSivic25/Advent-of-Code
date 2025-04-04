@@ -1,0 +1,16 @@
+input = open("Input.txt", 'r').readlines()
+final = 0
+
+for i in input:
+    values = i.strip().split(" ")
+    isValid = True
+    for j in values:
+        tempValues = values.copy()
+        tempValues.pop(tempValues.index(j))
+        for k in tempValues:
+            if j == k:
+                isValid = False
+    if isValid:
+        final += 1
+
+print(final)
