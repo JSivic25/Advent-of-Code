@@ -1,0 +1,20 @@
+input = open("Input.txt", 'r').readlines()
+intInput = []
+index = 0
+jumps = 0
+
+for i in input:
+    intInput.append(int(i))
+
+while True:
+    if(index < 0 or index > 1058):
+        break
+    if intInput[index] < 3:
+        intInput[index] += 1
+        index += intInput[index] - 1
+    else:
+        intInput[index] -= 1
+        index += intInput[index] + 1
+    jumps += 1
+
+print(jumps)
