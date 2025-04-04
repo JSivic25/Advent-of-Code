@@ -1,0 +1,15 @@
+input = open("Input.txt", 'r').readlines()
+final = 0
+
+for i in input:
+    high = 0
+    low = 50000
+    values = i.split("\t")
+    for j in values:
+        if int(j) > high:
+            high = int(j)
+        if int(j) < low:
+            low = int(j)
+    final += (high - low)
+
+print(final)
