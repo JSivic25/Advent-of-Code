@@ -1,0 +1,13 @@
+input = open("Input.txt", 'r').readlines()
+final = 0
+
+for i in input:
+    values = i.split("\t")
+    for j in values:
+        for k in values:
+            jInt = int(j)
+            kInt = int(k)
+            if (jInt/kInt).is_integer() and not(jInt/kInt) == 1:
+                final += (jInt/kInt)
+
+print(final)
