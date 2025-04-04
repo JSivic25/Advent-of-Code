@@ -1,0 +1,30 @@
+input = open("Input.txt", 'r').readlines()
+base = []
+top = []
+topSplit = []
+NTL = [] #not top level
+NTLS = [] # not top level stripped
+index = 0
+jumps = 0
+answer = ""
+
+for i in input:
+    if not i.find("->") == -1:
+        NTL.append(i)
+for i in NTL:
+    NTLS.append(i.strip())
+for i in NTLS:
+    base.append(i[:i.index(" ")])
+    top.append(i[i.index("> ") + 1:])
+for i in top:
+    topSplit.append(i.split(", "))
+print(topSplit)
+for i in base:
+    hasBase = False
+    for j in topSplit:
+        for k in j:
+            if k.strip() == i:
+                hasBase = True
+    if not hasBase:
+        answer = i
+print(answer)
