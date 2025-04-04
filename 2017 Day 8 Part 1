@@ -1,0 +1,54 @@
+input = open("Input.txt", 'r').readlines()
+commands = []
+registers = {}
+high = 0
+
+for i in input:
+    commands.append(i.split(" "))
+
+for command in commands:
+    regOut = command[0]
+    instruction = command[1]
+    val = int(command[2])
+    regIn = command[4]
+    cond = command[5]
+    condVal = int(command[6])
+    meetsCond = False
+
+    if not (regOut in registers):
+        registers.update({regOut:0})
+    if not (regIn in registers):
+        registers.update({regIn:0})
+
+    match cond:
+        case ">":
+            if registers[regIn] > condVal:
+                meetsCond = True
+        case "<":
+            if registers[regIn] < condVal:
+                meetsCond = True
+        case "<=":
+            if registers[regIn] <= condVal:
+                meetsCond = True
+        case ">=":
+            if registers[regIn] >= condVal:
+                meetsCond = True
+        case "==":
+            if registers[regIn] == condVal:
+                meetsCond = True
+        case "!=":
+            if not registers[regIn] == condVal:
+                meetsCond = True
+
+    if meetsCond:
+        if instruction == "inc":
+            registers[regOut] += val
+        else:
+            registers[regOut] -= val
+
+for i in registers:
+    j = registers[i]
+    if j > high:
+        high = j
+
+print(high)
