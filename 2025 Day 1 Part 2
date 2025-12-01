@@ -1,0 +1,42 @@
+answer = 0
+location = 50
+
+def getInput():
+    return open('input', 'r').read().splitlines()
+
+def parseInput(input):
+    for item in input:
+        parseItem(item)
+
+def parseItem(item):
+    direction = item[0]
+    amount = item[1:]
+    updateLocation(direction, amount)
+
+def updateLocation(direction, amount):
+    global location
+    if direction == 'L':
+        for i in range(int(amount)):
+            location -= 1
+            if isValid():
+                incrementAnswer(1)
+    else:
+        for i in range(int(amount)):
+            location += 1
+            if isValid():
+                incrementAnswer(1)
+
+def isValid():
+    if location % 100 == 0:
+        return True
+    return False
+
+def incrementAnswer(amount):
+    global answer
+    answer += amount
+
+def main():
+    parseInput(getInput())
+    print(answer)
+
+main()
