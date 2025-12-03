@@ -1,0 +1,47 @@
+import textwrap
+
+answer = 0
+
+def getInput():
+    return open('input', 'r').read().split(",")
+
+def parseInput(input):
+    for item in input:
+        parseItem(item)
+
+def parseItem(item):
+    splitLoc = item.index("-")
+    lowerBound = item[:splitLoc]
+    upperBound = item[splitLoc+1:]
+    checkRange(lowerBound, upperBound)
+
+def checkRange(lowerBound, upperBound):
+    global answer
+    for value in range(int(lowerBound), int(upperBound) + 1):
+        if checkAll(value):
+            answer += value
+
+def checkAll(value):
+    for i in range(2, len(str(value)) + 1):
+        if isInvalid(value, i):
+            return True
+    return False
+
+def isInvalid(value, repeats):
+    items = []
+    valueStr = str(value)
+    strLength = len(valueStr)
+    if strLength % repeats != 0:
+        return False
+    items = textwrap.wrap(valueStr, int(strLength/repeats))
+    for item in items:
+        if item != items[0]:
+            return False
+    return True
+
+
+def main():
+    parseInput(getInput())
+    print(answer)
+
+main()
