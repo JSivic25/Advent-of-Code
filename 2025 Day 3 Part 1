@@ -1,0 +1,45 @@
+answer = 0
+
+def getInput():
+    newInput = []
+    input = open('input', 'r').readlines()
+    for line in input:
+        newInput.append(line.strip())
+    return newInput
+
+def getHighest(value):
+    firstDig = getFirstDig(value)
+    secondDig = getSecondDig(value, firstDig)
+    return int(firstDig + secondDig)
+
+def getFirstDig(value):
+    firstDig = -1
+    for i in range(9, -1, -1):
+        for char in value:
+            if int(char) == i and value.index(char) != len(value) - 1:
+                firstDig = char
+                break
+        if firstDig != -1:
+            break
+    return str(firstDig)
+
+def getSecondDig(value, firstDig):
+    secondDig = -1
+    value = value[value.index(str(firstDig)) + 1:]
+    for i in range(9, -1, -1):
+        for char in value:
+            if int(char) == i:
+                secondDig = char
+                break
+        if secondDig != -1:
+            break
+    return str(secondDig)
+
+def main():
+    global answer
+    input = getInput()
+    for bank in input:
+        answer += getHighest(bank)
+    print(answer)
+
+main()
