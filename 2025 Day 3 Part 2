@@ -1,0 +1,37 @@
+answer = 0
+
+def getInput():
+    newInput = []
+    input = open('input', 'r').readlines()
+    for line in input:
+        newInput.append(line.strip())
+    return newInput
+
+def getHighest(value):
+    highest = ""
+    for i in range(11, -1, -1):
+        highest += getHighestDig(value, i)
+        if len(value) == 0:
+            break
+        value = value[value.index(highest[len(highest) - 1]) + 1:]
+    return int(highest)
+
+def getHighestDig(value, amountNeeded):
+    highestDig = -1
+    for i in range(9, -1, -1):
+        for char in value:
+            if int(char) == i and value.index(char) < len(value) - amountNeeded:
+                highestDig = char
+                break
+        if highestDig != -1:
+            break
+    return str(highestDig)
+
+def main():
+    global answer
+    input = getInput()
+    for bank in input:
+        answer += getHighest(bank)
+    print(answer)
+
+main()
