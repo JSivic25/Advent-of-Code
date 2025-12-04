@@ -1,0 +1,37 @@
+def getInput():
+    newInput = []
+    input = open('input', 'r').readlines()
+    for line in input:
+        newInput.append(line.strip())
+    return newInput
+
+def isReachable(input, x, y):
+    if numAdjacent(input, x, y) < 4:
+        return True
+    else:
+        return False
+
+def amountReachable(input):
+    amount = 0
+    for x in range(len(input[0])):
+        for y in range(len(input)):
+            if input[y][x] == "@" and isReachable(input, x, y):
+                amount += 1
+    return amount
+
+def numAdjacent(input, xLoc, yLoc):
+    adjacent = 0
+    for dx in range(-1, 2):
+        for dy in range(-1, 2):
+            if dx == 0 and dy == 0:
+                continue
+            if xLoc + dx >= len(input[0]) or xLoc + dx < 0 or yLoc + dy >= len(input) or yLoc + dy < 0:
+                continue
+            if input[yLoc + dy][xLoc + dx] == "@":
+                adjacent += 1
+    return adjacent
+
+def main():
+    print(amountReachable(getInput()))
+
+main()
