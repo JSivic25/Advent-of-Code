@@ -1,0 +1,37 @@
+def getInput():
+    newInput = []
+    input = open('input', 'r').readlines()
+    for line in input:
+        newInput.append(line.strip())
+    return newInput
+
+def getInput2():
+    newInput = []
+    input = open('input2', 'r').readlines()
+    for line in input:
+        newInput.append(int(line.strip()))
+    return newInput
+
+def createValidityLists(input):
+    lowerBoundsList = []
+    upperBoundsList = []
+    for item in input:
+        lowerBoundsList.append(int(item[:item.index('-')]))
+        upperBoundsList.append(int(item[item.index('-') + 1:]))
+    return lowerBoundsList, upperBoundsList
+
+def amountFresh(lowerBoundsList, upperBoundsList, itemList):
+    amountFresh = 0
+    for item in itemList:
+        for i in range(len(lowerBoundsList)):
+            if item >= lowerBoundsList[i] and item <= upperBoundsList[i]:
+                amountFresh += 1
+                break
+    return amountFresh
+
+def main():
+    lowerBoundsList, upperBoundsList = createValidityLists(getInput())
+    fresh = amountFresh(lowerBoundsList, upperBoundsList, getInput2())
+    print(fresh)
+
+main()
