@@ -1,0 +1,52 @@
+def getInput():
+    newInput = []
+    input = open('input', 'r').readlines()
+    for line in input:
+        newInput.append(line.strip())
+    return newInput
+
+def createValidityArr(input):
+    arr = []
+    for item in input:
+        pair = (int(item[:item.index("-")]), int(item[item.index("-") + 1:]))
+        arr.append(pair)
+    return arr
+
+def sortArr(arr):
+    return sorted(arr, key=lambda x: x[0])
+
+def cleanSortedList(sortedList):
+    cleanedList = []
+    for item in sortedList:
+        cleanedList.append([item[0], item[1]])
+    return cleanedList
+
+def compactList(list):
+    length = len(list)
+    i = 1
+    while i < length:
+        if list[i][0] <= list[i - 1][1]:
+            if list[i][1] >= list[i - 1][1]:
+                list[i - 1][1] = list[i][1]
+            list.remove(list[i])
+            i -= 1
+            length -= 1
+        i += 1
+    return list
+
+def getAmount(list):
+    amount = 0
+    for item in list:
+        addition = item[1] - item[0] + 1
+        amount += addition
+    return amount
+
+def main():
+    input = getInput()
+    Arr = createValidityArr(input)
+    sorted = sortArr(Arr)
+    cleaned = cleanSortedList(sorted)
+    compact = compactList(cleaned)
+    print(getAmount(compact))
+
+main()
