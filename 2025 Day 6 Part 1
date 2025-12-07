@@ -1,0 +1,32 @@
+def getInput():
+    newInput = []
+    input = open('input', 'r').readlines()
+    for line in input:
+        newInput.append(line.strip())
+    return newInput
+
+def parseInput(input):
+    newInput = []
+    for line in input:
+        newInput.append(line.split())
+    for line in newInput:
+        while "" in line:
+            line.remove("")
+    return newInput
+
+def calc(val1, val2, val3, val4, op):
+    if op == "+":
+        return int(val1) + int(val2) + int(val3) + int(val4)
+    elif op == "*":
+        return int(val1) * int(val2) * int(val3) * int(val4)
+
+def getTotal(input):
+    total = 0
+    for i in range(len(input[0])):
+        total += calc(input[0][i], input[1][i], input[2][i], input[3][i], input[4][i])
+    return total
+
+def main():
+    print(getTotal(parseInput(getInput())))
+
+main()
