@@ -1,0 +1,55 @@
+def getInput():
+    newInput = []
+    input = open('input', 'r').readlines()
+    for line in input:
+        newInput.append(line.strip())
+    input = []
+    for i in range(len(newInput)):
+        input.append([])
+        for char in newInput[i]:
+            if char == "^":
+                input[i].append(-1)
+            else:
+                input[i].append(int(char))
+    return input
+
+def updateBeams(coordArray, layoutArray):
+    for beam in coordArray:
+        i = beam[0]
+        j = beam[1]
+        if layoutArray[i + 1][j] == -1:
+            layoutArray[i + 1][j + 1] += layoutArray[i][j]
+            layoutArray[i + 1][j - 1] += layoutArray[i][j]
+        else:
+            layoutArray[i + 1][j] += layoutArray[i][j]
+        layoutArray[i][j] = 0
+    return layoutArray
+
+def createBeamArr(diagram):
+    coordArray = []
+    for i in range(len(diagram)):
+        for j in range(len(diagram[0])):
+            if diagram[i][j] >= 1:
+                coordArray.append([i, j])
+    return coordArray
+
+def iterateAll(inputLayout):
+    currentLayout = inputLayout
+    beamArray = createBeamArr(currentLayout)
+    for i in range(len(inputLayout) - 1):
+        currentLayout = updateBeams(beamArray, currentLayout)
+        beamArray = createBeamArr(currentLayout)
+    return currentLayout
+
+def sumFinal(input):
+    total = 0
+    for int in input[len(input) - 1]:
+        total += int
+    return total
+
+def main():
+    initialLayout = getInput()
+    finalLayout = iterateAll(initialLayout)
+    print(sumFinal(finalLayout))
+
+main()
