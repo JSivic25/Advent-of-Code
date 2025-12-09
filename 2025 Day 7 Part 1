@@ -1,0 +1,57 @@
+def getInput():
+    newInput = []
+    input = open('input', 'r').readlines()
+    for line in input:
+        newInput.append(line.strip())
+    input = []
+    for i in range(len(newInput)):
+        input.append([])
+        for char in newInput[i]:
+            input[i].append(char)
+    return input
+
+def updateBeams(coordArray, layoutArray):
+    for beam in coordArray:
+        i = beam[0]
+        j = beam[1]
+        if layoutArray[i + 1][j] == "^":
+            layoutArray[i + 1][j + 1] = "B"
+            layoutArray[i + 1][j - 1] = "B"
+            layoutArray[i + 1][j] = "."
+        else:
+            layoutArray[i + 1][j] = "B"
+        layoutArray[i][j] = "."
+    return layoutArray
+
+def createBeamArr(diagram):
+    coordArray = []
+    for i in range(len(diagram)):
+        for j in range(len(diagram[0])):
+            if diagram[i][j] == "B":
+                coordArray.append([i, j])
+    return coordArray
+
+def iterateAll(inputLayout):
+    currentLayout = inputLayout
+    beamArray = createBeamArr(currentLayout)
+    for i in range(len(inputLayout) - 1):
+        currentLayout = updateBeams(beamArray, currentLayout)
+        beamArray = createBeamArr(currentLayout)
+    return currentLayout
+
+def countSplitters(layout):
+    count = 0
+    for row in layout:
+        for char in row:
+            if char == "^":
+                count += 1
+    return count
+
+def main():
+    initialLayout = getInput()
+    initialSplitters = countSplitters(initialLayout)
+    finalLayout = iterateAll(initialLayout)
+    finalSplitters = countSplitters(finalLayout)
+    print(initialSplitters - finalSplitters)
+
+main()
